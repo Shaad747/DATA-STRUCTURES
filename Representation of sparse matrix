@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int r,c,data;
+    struct node* next;
+    struct node* prev;
+};
+typedef struct node* NODE;
+NODE insertend(NODE start ,int r, int c, int item)
+{
+    NODE temp,cur;
+    temp= (NODE)malloc(sizeof(struct node));
+    temp->r = r;
+    temp->c = c;
+    temp->data = item;
+    temp->next = NULL;
+    temp->prev = NULL;
+    if (start == NULL)
+        return temp;
+    cur = start;
+    while (cur->next != NULL)
+        cur = cur->next;
+    cur->next = temp;
+    temp->prev = cur;
+    return start;
+}
+void display(NODE start)
+{
+    NODE temp;
+    if (start == NULL)
+        printf("List is empty\n");
+    else
+    {
+      printf("\n ROW \t COLUMN \t DATA \n");
+      temp= start;
+      while (temp != NULL)
+      {
+          printf("%d \t %d \t\t %d\n", temp->r,temp->c,temp->data);
+          temp = temp->next;
+      }
+    }
+}
+void displaymatrix(NODE start, int m , int n) {
+    int i, j;
+    NODE temp = start;
+    for (i = 0; i < m; i++)
+    {
+      for (j = 0; j < n; j++)
+      {
+        if (temp != NULL && temp->r==i && temp->c==j)
+        {
+          printf("%d\t",temp->data);
+          temp=temp->next;
+        }
+        else
+            printf("0\t");
+      }
+    printf(" \n \t \t");
+    }
+}
+int main()
+{
+    int i, j, m, n, item;
+    NODE start = NULL;
+    printf("Read the order of matrix: ");
+    scanf("%d%d", &m, &n);
+    printf("Enter elements of the %dx%d matrix:\n", m, n);
+    for (i = 0; i < m; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            scanf("%d", &item);
+            if (item != 0)
+                start = insertend(start, i, j, item);
+        }
+    }
+    display(start);
+    printf("Actual matrix is :");
+    displaymatrix(start, m, n);
+    return 0;
+}
