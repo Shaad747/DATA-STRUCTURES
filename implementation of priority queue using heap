@@ -50,7 +50,7 @@ int main(){
             case 2:{
                 if(n>=1){
                     printf("\nKey deleted is %d",a[1]);
-                    a[1]=a[n];
+                    a[i]=a[n];
                     n-=1;
                     heapify(a,n);
                     printf("\nHeap after deleting\n");
